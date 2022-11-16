@@ -2,7 +2,6 @@ import os
 import sys
 import time
 import subprocess
-from playsound import playsound
 import shutil
 from dependencies.terminalClear import terminalClear
 from dependencies.divider import divider
@@ -125,16 +124,21 @@ def Pyflix():
 
             movieName = input(f"What is the name of the move you want to add? {Fore.YELLOW}(Case Sensitive){Fore.RESET} -> ")
             movieName = f"{movieName}.mp4"
-
-            for root, dirs, files in os.walk("C:\\"):
-                for name in files:
-                    if name == movieName:
-                        originalMoviePath = os.path.abspath(os.path.join(root, name))
-                        shutil.copy(originalMoviePath, f".\\Movies\\{movieName}.mp4")
-                        continue
-                    else:
-                        print(f"{Fore.RED}ERROR: Couldn't find {movieName} in any directory.")
-                        continue
+            
+            originalMoviePath = glob.glob(movieName)
+            try:
+                if os.path.exists(originalMoviePath):
+                    shutil.copy(originalMoviePath, f".\\Movies\\{movieName}")
+            except:
+                for root, dirs, files in os.walk("C:\\"):
+                    for name in files:
+                        if name == movieName:
+                            originalMoviePath = os.path.abspath(os.path.join(root, name))
+                            shutil.copy(originalMoviePath, f".\\Movies\\{movieName}.mp4")
+                            continue
+                        else:
+                            print(f"{Fore.RED}ERROR: Couldn't find {movieName} in any directory.")
+                            continue
 
         if userInput == "4" or userInput == 4:
 
