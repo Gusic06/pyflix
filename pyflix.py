@@ -5,7 +5,7 @@ import subprocess
 import shutil
 from dependencies.terminalClear import terminalClear
 from dependencies.divider import divider
-from dependencies.loadingMessage import openingAnimation, openingAnimationPt2, rgbLoadingBar, loadingBar, loadingMessage
+from dependencies.loadingMessage import *
 from dependencies.openingSFX import opening
 from threading import *
 from colorama import Fore
