@@ -73,9 +73,6 @@ def Pyflix():
                 terminalClear(0.75)
             
             if os.path.exists(f".\\Movies\\{movieName}.mp4"):
-                if " " in movieName:
-                    newMovieName = movieName.split(2, " ")
-                    subprocess.call(["cmd", "/c", "start", f""])
                 subprocess.call(["cmd", "/c", "start", f".\\Movies\\{newMovieName}.mp4"])
                 terminalClear(0.75)
 
