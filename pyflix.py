@@ -37,9 +37,11 @@ def Pyflix():
         print(f"It looks like it is the first time you are using {Fore.YELLOW}Py{Fore.RESET}{Fore.BLUE}flix{Fore.RESET}.")
         time.sleep(0.75)
         print(f"Please wait while {Fore.YELLOW}Py{Fore.RESET}{Fore.BLUE}flix{Fore.RESET} finishes the setup...")
+        
         time.sleep(0.75)
         divider()
         rgbLoadingBar(0.75)
+        
         print(f"{Fore.YELLOW}Setup Complete!{Fore.RESET}")
         time.sleep(0.5)
         print(f"{Fore.YELLOW}Launching pyflix now.{Fore.RESET}")
@@ -123,28 +125,29 @@ def Pyflix():
 
             terminalClear(0.5)
 
-            movieName = input(f"What is the name of the move you want to add? {Fore.YELLOW}(Case Sensitive){Fore.RESET} -> ")
+            movieName = input(f"What is the name of the movie you want to add? {Fore.YELLOW}(Case Sensitive){Fore.RESET} -> ")
 
-            time.sleep(0.25)
+            terminalClear(0.25)
+
+            print(f"{Fore.YELLOW}Finding file please wait...{Fore.RESET}")
 
             OSNAME = os.getlogin()
             
-            files = glob.glob(r'C:\\users\\{OSNAME}\\Desktop\\**\\*.mp4', recursive=True)
+            files = glob.glob(f'C:\\users\\{OSNAME}\\**\\*.mp4', recursive=True)
 
             for file in files:
-                print(file)
                 if movieName in file:
                     rgbLoadingBar(0.3)
                     print(f"{Fore.YELLOW}Successfully found {movieName}.mp4!{Fore.RESET}")
                     time.sleep(0.3)
                     try:
-                        shutil.copy(file, ".\\Movies\\{movieName}")
+                        shutil.copy(file, f".\\Movies\\{movieName}.mp4")
                         print(f"{Fore.YELLOW}Successfully copied ({movieName}.mp4)!{Fore.RESET}")
-                        time.sleep(0.5)
+                        terminalClear(1)
+                        continue
                     except:
-                        print(f"{Fore.RED}ERROR: Failed to copy {movieName}.mp4 to target folder...{Fore.RESET}")
-                else:
-                    print(f"{Fore.RED}ERROR: Couldn't find ({movieName}) in any directory.{Fore.RESET}\n{Fore.YELLOW}Did you spell the filename correctly?{Fore.RESET}")
+                        print(f"{Fore.RED}ERROR: Failed to copy ({movieName}.mp4) to target folder...{Fore.RESET}")
+                        terminalClear()
 
         if userInput == "4" or userInput == 4:
 
@@ -187,7 +190,7 @@ def Pyflix():
                         terminalClear(0.1)
                             
                 if settingsUserInput == "2" or settingsUserInput == 2:
-                    
+
                     terminalClear(0)
                     settingLoop = False
                     loadingBar(0.15)
