@@ -37,11 +37,9 @@ def Pyflix():
         print(f"It looks like it is the first time you are using {Fore.YELLOW}Py{Fore.RESET}{Fore.BLUE}flix{Fore.RESET}.")
         time.sleep(0.75)
         print(f"Please wait while {Fore.YELLOW}Py{Fore.RESET}{Fore.BLUE}flix{Fore.RESET} finishes the setup...")
-        
         time.sleep(0.75)
         divider()
         rgbLoadingBar(0.75)
-        
         print(f"{Fore.YELLOW}Setup Complete!{Fore.RESET}")
         time.sleep(0.5)
         print(f"{Fore.YELLOW}Launching pyflix now.{Fore.RESET}")
@@ -176,6 +174,8 @@ def Pyflix():
                         if os.path.exists(".\\settings"):
                             with open(".\\settings\\settings.py", "w")as file:
                                 file.write(fullscreenPreference)
+                            print(f"{Fore.GREEN}NOTE: Your change will take effect the next time Pyflix is opened.{Fore.RESET}")
+                            time.sleep(0.75)
                         else:
                             try:
                                 os.system("mkdir settings")
@@ -187,7 +187,24 @@ def Pyflix():
                                     file.write(fullscreenPreference)
                     
                     if userInput == "N" or userInput == "No":
-                        terminalClear(0.1)
+
+                        fullscreenPreference = "False"
+
+                        if os.path.exists(".\\settings"):
+                            with open(".\\settings\\settings.py", "w")as file:
+                                file.write(fullscreenPreference)
+                            print(f"{Fore.GREEN}NOTE: Your change will take effect the next time Pyflix is opened.{Fore.RESET}")
+                            time.sleep(0.75)
+                        else:
+                            try:
+                                os.system("mkdir settings")
+                                with open(".\\settings\\settings.py", "w")as file:
+                                    file.write(fullscreenPreference)
+                            except:
+                                subprocess.call(["mkdir", "settings"])
+                                with open(".\\settings\\settings.py", "w")as file:
+                                    file.write(fullscreenPreference)
+                        
                             
                 if settingsUserInput == "2" or settingsUserInput == 2:
 
