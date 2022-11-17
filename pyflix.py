@@ -37,11 +37,9 @@ def Pyflix():
         print(f"It looks like it is the first time you are using {Fore.YELLOW}Py{Fore.RESET}{Fore.BLUE}flix{Fore.RESET}.")
         time.sleep(0.75)
         print(f"Please wait while {Fore.YELLOW}Py{Fore.RESET}{Fore.BLUE}flix{Fore.RESET} finishes the setup...")
-        
         time.sleep(0.75)
         divider()
         rgbLoadingBar(0.75)
-        
         print(f"{Fore.YELLOW}Setup Complete!{Fore.RESET}")
         time.sleep(0.5)
         print(f"{Fore.YELLOW}Launching pyflix now.{Fore.RESET}")
