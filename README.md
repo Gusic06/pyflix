@@ -1,1 +1,1 @@
-# Pyflix | A CLI Based Application
+# **Pyflix** | A CLI Based Application
