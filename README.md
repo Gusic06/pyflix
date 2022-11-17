@@ -5,4 +5,4 @@
 
 or
 
-> [Click Here]("https://github.com/Gusic06/pyflix-executable") and install the ".exe" file and then just run it from there
+> [__Click Here__]("https://github.com/Gusic06/pyflix-executable") and install the ".exe" file and then just run it from there
