@@ -3,10 +3,12 @@ import sys
 import time
 import subprocess
 import shutil
+import glob
 from dependencies.terminalClear import terminalClear
 from dependencies.divider import divider
 from dependencies.loadingMessage import *
 from dependencies.openingSFX import opening
+from dependencies.secretMenuAssets import *
 from threading import *
 from colorama import Fore
 
@@ -15,7 +17,7 @@ def Pyflix():
     openingSound = Thread(target=opening, daemon=True)
     openingSound.start()
     
-    time.sleep(0.00045)
+    time.sleep(0.0008)
 
     openingAnimation(0.24)
     openingAnimationPt2(0.08)
@@ -73,7 +75,7 @@ def Pyflix():
                 terminalClear(0.75)
             
             if os.path.exists(f".\\Movies\\{movieName}.mp4"):
-                subprocess.call(["cmd", "/c", "start", f".\\Movies\\{newMovieName}.mp4"])
+                subprocess.call(["cmd", "/c", "start", f".\\Movies\\{movieName}.mp4"])
                 terminalClear(0.75)
 
             else:
@@ -119,23 +121,30 @@ def Pyflix():
 
         if userInput == "3" or userInput == 3:
 
+            terminalClear(0.5)
+
             movieName = input(f"What is the name of the move you want to add? {Fore.YELLOW}(Case Sensitive){Fore.RESET} -> ")
-            movieName = f"{movieName}.mp4"
+
+            time.sleep(0.25)
+
+            OSNAME = os.getlogin()
             
-            originalMoviePath = glob.glob(movieName)
-            try:
-                if os.path.exists(originalMoviePath):
-                    shutil.copy(originalMoviePath, f".\\Movies\\{movieName}")
-            except:
-                for root, dirs, files in os.walk("C:\\"):
-                    for name in files:
-                        if name == movieName:
-                            originalMoviePath = os.path.abspath(os.path.join(root, name))
-                            shutil.copy(originalMoviePath, f".\\Movies\\{movieName}.mp4")
-                            continue
-                        else:
-                            print(f"{Fore.RED}ERROR: Couldn't find {movieName} in any directory.")
-                            continue
+            files = glob.glob(r'C:\\users\\{OSNAME}\\Desktop\\**\\*.mp4', recursive=True)
+
+            for file in files:
+                print(file)
+                if movieName in file:
+                    rgbLoadingBar(0.3)
+                    print(f"{Fore.YELLOW}Successfully found {movieName}.mp4!{Fore.RESET}")
+                    time.sleep(0.3)
+                    try:
+                        shutil.copy(file, ".\\Movies\\{movieName}")
+                        print(f"{Fore.YELLOW}Successfully copied ({movieName}.mp4)!{Fore.RESET}")
+                        time.sleep(0.5)
+                    except:
+                        print(f"{Fore.RED}ERROR: Failed to copy {movieName}.mp4 to target folder...{Fore.RESET}")
+                else:
+                    print(f"{Fore.RED}ERROR: Couldn't find ({movieName}) in any directory.{Fore.RESET}\n{Fore.YELLOW}Did you spell the filename correctly?{Fore.RESET}")
 
         if userInput == "4" or userInput == 4:
 
@@ -178,10 +187,54 @@ def Pyflix():
                         terminalClear(0.1)
                             
                 if settingsUserInput == "2" or settingsUserInput == 2:
+                    
                     terminalClear(0)
                     settingLoop = False
                     loadingBar(0.15)
                     terminalClear(0.1)
+                
+                if settingsUserInput == "3" or settingsUserInput == 3:
+
+                    secretMenuLoop = True
+
+                    while secretMenuLoop == True:
+
+                        terminalClear(0.5)
+                        
+                        secretMenu()
+
+                        userInput = input(f"\nWhat {Fore.RED}mode{Fore.RESET} do you want to select? {Fore.RED}(1-4){Fore.RESET} -> ")
+
+                        if userInput == "1" or userInput == 1:
+
+                            openingSound = Thread(target=secretOpeningSound, daemon=True)
+                            openingSound.start()
+                            
+                            time.sleep(0.0008)
+
+                            secretOpeningAnimation(0.24)
+                            secretOpeningAnimationPt2(0.08)
+                            time.sleep(0.1)
+
+                        if userInput == "2" or userInput == 2:
+
+                            terminalClear(0.5)
+                            speed = float(input(f"{Fore.RED}Speed:{Fore.RESET} "))
+                            secretLoadingBar(speed)
+                            print(f"{Fore.RED}Done!{Fore.RESET}")
+                            time.sleep(0.1)
+                        
+                        if userInput == "3" or userInput == 3:
+
+                            terminalClear(0)
+                            print(f"{Fore.RED}Playing...{Fore.RESET}")
+                            playsound(r"./assets/openingSFX.mp3")
+                            terminalClear(0.45)
+                        
+                        if userInput == "4" or userInput == 4:
+                            terminalClear(0)
+                            print(f"{Fore.RED}Exiting Secret Menu Now.{Fore.RESET}")
+                            secretMenuLoop = False
 
         if userInput == "5" or userInput == 5:
 
