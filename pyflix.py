@@ -13,6 +13,9 @@ from threading import *
 from colorama import Fore
 
 def Pyflix():
+    """
+    Doesn't take in any parameters, just run the function and it should work (hopefully)
+    """
 
     openingSound = Thread(target=opening, daemon=True)
     openingSound.start()
