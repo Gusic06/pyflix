@@ -31,7 +31,7 @@ def Pyflix():
     else:
         fullscreenPreference = True
 
-    if os.path.exists(".\\Movies") == False:
+    if os.path.exists(".\\Movies") is False:
 
         time.sleep(0.75)
         print("\n")
